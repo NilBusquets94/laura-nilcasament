@@ -328,6 +328,6 @@ header.hero::before {
     
     /* 3. (Opcional) Podemos darle un poco más de altura en móvil
        para que la imagen tenga más espacio para mostrarse. */
-    min-height: 70vh;
+    min-height: 60vh;
   }
 }
