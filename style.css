@@ -311,3 +311,23 @@ header.hero::before {
   text-align: center;
   margin-top: 32px;
 }
+
+/* ========================================= */
+/* ==== AJUSTES PARA LA IMAGEN DEL HEADER EN MÓVIL ==== */
+/* ========================================= */
+
+@media (max-width: 768px) {
+  header.hero {
+    /* 1. Cambiamos el punto de anclaje de la imagen.
+       En lugar de centrarla, le decimos que priorice la parte superior. */
+    background-position: center top;
+
+    /* 2. Desactivamos el efecto parallax en móvil.
+       Esto mejora mucho el rendimiento y la compatibilidad. */
+    background-attachment: scroll;
+    
+    /* 3. (Opcional) Podemos darle un poco más de altura en móvil
+       para que la imagen tenga más espacio para mostrarse. */
+    min-height: 70vh;
+  }
+}
