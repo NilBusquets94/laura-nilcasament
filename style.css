@@ -41,10 +41,14 @@ header.hero::before {
   z-index:3;                    /* sobre la capa ::before y el contenido */
 }
 
-.logo img{
-  display:block;
-  height:150px;
-  width:auto;
+.logo img {
+  display: block;
+  width: auto; /* Mantiene la proporción correcta de la imagen */
+  /* El logo tendrá:
+     - Un mínimo de 80px de alto.
+     - Un máximo de 150px de alto.
+     - Un tamaño flexible del 18% del ancho de la pantalla (18vw). */
+  height: clamp(80px, 18vw, 150px);
 }
 
 /* Contenido centrado */
