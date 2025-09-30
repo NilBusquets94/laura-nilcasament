@@ -141,3 +141,75 @@ header.hero::before {
   }
 }
 
+/* CÓDIGO A AÑADIR AL FINAL DE STYLE.CSS */
+
+/* ========= ESTILOS PARA LA SECCIÓN DEL MAPA ========= */
+
+.location-section {
+  background: #f8f8f8; /* Un color de fondo suave para diferenciar */
+  padding: 48px 24px;
+  text-align: center; /* Centramos el texto */
+}
+
+.location-content {
+  max-width: 70ch; /* Limitamos el ancho del texto para mejor lectura */
+  margin: 0 auto 32px auto; /* Centramos el contenedor de texto y añadimos espacio debajo */
+}
+
+.location-content h2 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 3.5vw, 36px); /* Mismo tamaño de título que la sección anterior */
+  line-height: 1.2;
+}
+
+.location-content p {
+  margin: 0 0 14px;
+  font-size: clamp(16px, 2.4vw, 18px); /* Mismo tamaño de párrafo */
+  line-height: 1.7;
+  opacity: .95;
+}
+
+
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 900px) {
+  .location-section {
+    padding: 32px 16px;
+  }
+}
+
+/* --- Ajuste para REDUCIR el tamaño del mapa en pantallas grandes --- */
+
+.map-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* El mapa usará todo el ancho de su sección */
+  
+  /* Reducimos el padding-top para que sea menos alto (más panorámico) */
+  padding-top: 30%;
+
+  border-radius: 16px; /* Mantiene las esquinas redondeadas */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  
+  /* Hemos quitado max-width y margin para que ocupe todo el ancho disponible */
+}
+
+/* El resto del código del mapa que ya tenías */
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilo para el enlace de la dirección */
+.address-link {
+  text-decoration: none; /* Quita el subrayado por defecto */
+  color: inherit; /* Hereda el color del texto normal */
+  transition: color .2s ease;
+}
+
+.address-link:hover {
+  color: #007bff; /* Cambia a un color azul al pasar el ratón */
+}
