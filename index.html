@@ -19,7 +19,7 @@
         <div class="hero-content">
             <h1>Laura &amp; Nil</h1>
             <p>13 de Juny de 2025, Mas d'Osor</p>
-            <a class="btn" href="#rsvp" aria-label="Confirmar asistencia">confirma tu asistencia</a>
+            <a class="btn" href="#rsvp" aria-label="Confirmar asistencia">CONFIRMA ASSISTENCIA</a>
         </div>
     </header>
     <section class="info-split" id="timings">
@@ -61,6 +61,30 @@
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
+    </section>
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2>Ponte en <br> contacto con nosotros</h2>
+            <p>Contáctanos para confirmar asistencia o resolver dudas sobre la boda de Nil y Laura.</p>
+        </div>
+
+        <form class="contact-form" name="contacto" method="POST" data-netlify="true">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="required">(required)</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+            <div class="form-group form-submit">
+                <button type="submit" class="submit-btn">Enviar</button>
+            </div>
+        </form>
     </section>
 </body>
 </html>
