@@ -1,0 +1,139 @@
+:root {
+  --hero-min-h: 60vh;
+  --text-color: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* HERO a pantalla completa con imagen de fondo */
+header.hero {
+  position: relative;           /* ancestro posicionado para el logo */
+  min-height: var(--hero-min-h);
+  width: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--text-color);
+  text-align: center;
+  background: #000 url("image.jpg") center / cover no-repeat fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header.hero { background-attachment: scroll; }
+}
+
+/* Capa de oscurecido */
+header.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
+}
+
+/* Logo arriba-izquierda por encima del overlay */
+.logo{
+  position:absolute;
+  top:16px;
+  left:16px;
+  z-index:3;                    /* sobre la capa ::before y el contenido */
+}
+
+.logo img{
+  display:block;
+  height:150px;
+  width:auto;
+}
+
+/* Contenido centrado */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  max-width: 1000px;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(40px, 8vw, 80px);
+  line-height: 1.05;
+}
+
+.hero p {
+  margin: 0 0 28px;
+  font-size: clamp(16px, 2.4vw, 22px);
+  opacity: .95;
+}
+
+/* Botón estilo “RSVP” */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border: 2px solid rgba(255,255,255,.9);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 8px;
+  backdrop-filter: saturate(140%) blur(2px);
+  background: rgba(255,255,255,.06);
+  transition: all .2s ease;
+}
+
+.btn:hover, .btn:focus {
+  background: #fff;
+  color: #111;
+}
+
+/* Bloque de dos columnas bajo el header */
+.info-split{
+  background:#fff;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:32px;
+  align-items:center;
+  padding:48px 24px;
+}
+
+/* Centrar la imagen dentro de su columna (opcional) */
+.info-split__media{
+  display:grid;
+  place-items:center;
+}
+
+/* Límite de tamaño de la imagen */
+.info-split__media img{
+  width:100%;
+  max-width:700px;   /* ajustar el valor deseado */
+  height:auto;
+  object-fit:contain; /* mantiene proporción si se limita la altura */
+  border-radius:16px; /* conserva esquinas redondeadas */
+}
+
+
+/* Contenido derecho */
+.info-split__content{
+  max-width:60ch;
+}
+
+.info-split__content h2{
+  margin:0 0 12px;
+  font-size:clamp(24px, 3.5vw, 36px);
+  line-height:1.2;
+}
+
+.info-split__content p{
+  margin:0 0 14px;
+  font-size:clamp(16px, 2.4vw, 18px);
+  line-height:1.7;
+  opacity:.95;
+}
+
+/* Responsive: apilar en una columna */
+@media (max-width: 900px){
+  .info-split{
+    grid-template-columns: 1fr;
+    padding:32px 16px;
+  }
+}
+
