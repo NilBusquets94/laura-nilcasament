@@ -1,5 +1,5 @@
 :root {
-  --hero-min-h: 60vh;
+  --hero-min-h: 70vh;
   --text-color: #fff;
 }
 
@@ -36,8 +36,8 @@ header.hero::before {
 /* Logo arriba-izquierda por encima del overlay */
 .logo{
   position:absolute;
-  top:16px;
-  left:16px;
+  top:8px;
+  right:16px;
   z-index:3;                    /* sobre la capa ::before y el contenido */
 }
 
@@ -63,12 +63,18 @@ header.hero::before {
   margin: 0 0 12px;
   font-size: clamp(40px, 8vw, 80px);
   line-height: 1.05;
+  font-weight: 400;              
+  text-transform: none;
+  letter-spacing: 1px;           
 }
+
 
 .hero p {
   margin: 0 0 28px;
-  font-size: clamp(16px, 2.4vw, 22px);
+  font-size: clamp(14px, 2.4vw, 20px);
   opacity: .95;
+  font-weight: 400;
+  letter-spacing: 1.5px;
 }
 
 /* Botón estilo “RSVP” */
@@ -89,109 +95,17 @@ header.hero::before {
   color: #111;
 }
 
-/* Bloque de dos columnas bajo el header */
-.info-split{
-  background:#fff;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:32px;
-  align-items:center;
-  padding:48px 24px;
-}
-
-/* Centrar la imagen dentro de su columna (opcional) */
-.info-split__media{
-  display:grid;
-  place-items:center;
-}
-
-/* Límite de tamaño de la imagen */
-.info-split__media img{
-  width:100%;
-  max-width:700px;   /* ajustar el valor deseado */
-  height:auto;
-  object-fit:contain; /* mantiene proporción si se limita la altura */
-  border-radius:16px; /* conserva esquinas redondeadas */
-}
-
-
-/* Contenido derecho */
-.info-split__content{
-  max-width:60ch;
-}
-
-.info-split__content h2{
-  margin:0 0 12px;
-  font-size:clamp(24px, 3.5vw, 36px);
-  line-height:1.2;
-}
-
-.info-split__content p{
-  margin:0 0 14px;
-  font-size:clamp(16px, 2.4vw, 18px);
-  line-height:1.7;
-  opacity:.95;
-}
-
-/* Responsive: apilar en una columna */
-@media (max-width: 900px){
-  .info-split{
-    grid-template-columns: 1fr;
-    padding:32px 16px;
-  }
-}
-
-/* CÓDIGO A AÑADIR AL FINAL DE STYLE.CSS */
-
-/* ========= ESTILOS PARA LA SECCIÓN DEL MAPA ========= */
-
-.location-section {
-  background: #f8f8f8; /* Un color de fondo suave para diferenciar */
-  padding: 48px 24px;
-  text-align: center; /* Centramos el texto */
-}
-
-.location-content {
-  max-width: 70ch; /* Limitamos el ancho del texto para mejor lectura */
-  margin: 0 auto 32px auto; /* Centramos el contenedor de texto y añadimos espacio debajo */
-}
-
-.location-content h2 {
-  margin: 0 0 12px;
-  font-size: clamp(24px, 3.5vw, 36px); /* Mismo tamaño de título que la sección anterior */
-  line-height: 1.2;
-}
-
-.location-content p {
-  margin: 0 0 14px;
-  font-size: clamp(16px, 2.4vw, 18px); /* Mismo tamaño de párrafo */
-  line-height: 1.7;
-  opacity: .95;
-}
-
-
-
-/* Ajuste para pantallas pequeñas */
-@media (max-width: 900px) {
-  .location-section {
-    padding: 32px 16px;
-  }
-}
 
 /* --- Ajuste para REDUCIR el tamaño del mapa en pantallas grandes --- */
 
+/* Cerca aquesta regla al teu style.css */
 .map-container {
   position: relative;
   overflow: hidden;
-  width: 100%; /* El mapa usará todo el ancho de su sección */
-  
-  /* Reducimos el padding-top para que sea menos alto (más panorámico) */
-  padding-top: 30%;
-
-  border-radius: 16px; /* Mantiene las esquinas redondeadas */
+  width: 100%;
+  padding-top: 90%; /* Abans era 40%. Pots jugar amb aquest valor (ex: 80%, 90%) */
+  border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  
-  /* Hemos quitado max-width y margin para que ocupe todo el ancho disponible */
 }
 
 /* El resto del código del mapa que ya tenías */
@@ -203,131 +117,926 @@ header.hero::before {
   height: 100%;
 }
 
-/* Estilo para el enlace de la dirección */
-.address-link {
-  text-decoration: none; /* Quita el subrayado por defecto */
-  color: inherit; /* Hereda el color del texto normal */
-  transition: color .2s ease;
+/* ========================================= */
+/* ==== ESTILOS PARA EL MENÚ (VERSIÓN DINÁMICA) ==== */
+/* ========================================= */
+
+/* Contenedor principal del menú */
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 15px 30px;
+  display: flex;
+  /* MODIFICADO: Alineado a la izquierda */
+  justify-content: flex-start; 
+  align-items: center;
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 
-.address-link:hover {
-  color: #007bff; /* Cambia a un color azul al pasar el ratón */
+/* Estado del menú AL HACER SCROLL */
+.sticky-nav.scrolled {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 35px; /* Un poco menos de espacio entre elementos */
+}
+
+/* Estilo de los enlaces del menú */
+.sticky-nav a {
+  color: #fff; 
+  text-decoration: none;
+  font-weight: 600;
+  /* MODIFICADO: Tamaño de letra reducido */
+  font-size: 14px; 
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  transition: color 0.3s ease;
+}
+
+/* Estilo de los enlaces AL HACER SCROLL */
+.sticky-nav.scrolled a {
+  color: #333;
+  text-shadow: none;
+}
+
+/* Estilo para el enlace de la sección activa */
+.sticky-nav a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px; /* Espacio entre texto y subrayado */
+  text-decoration-thickness: 2px;
+}
+
+/* También para cuando el menú tiene fondo blanco */
+.sticky-nav.scrolled a.active {
+    color: #000; /* Un negro más intenso para destacar */
+}
+
+
+
+/* Restaura la font original per al botó del banner */
+.hero-content .btn {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  text-transform: uppercase; /* Opcional: el posem en majúscules per a més claredat */
+  letter-spacing: 1px;
 }
 
 /* ========================================= */
-/* ==== ESTILOS PARA LA SECCIÓN DE CONTACTO ==== */
+/* ==== ESTILS PER A LA SECCIÓ DE TEXT ==== */
 /* ========================================= */
 
-.contact-section {
-  background: #fff;
-  padding: 80px 24px;
+/* Contenidor principal de la secció */
+.text-section {
+  background: #fff; /* Fons blanc */
+  padding: 20px 24px; /* Espai vertical i horitzontal */
+}
+
+/* Limita l'amplada del text per a una millor lectura */
+.text-container {
+  max-width: 100ch; /* 'ch' és una unitat ideal per a la llargada de línia de text */
+  margin: 0 auto; /* Centra el contenidor de text */
+  text-align: center; /* MODIFICADO: Centra tot el text */
+}
+
+/* Estil per als paràgrafs */
+.text-container p,
+.gift-content p {
+  margin: 0 0 16px;
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.8; /* Una mica més d'interlineat per a més claredat */
+  color: #000000;
+}
+
+/* ======================================================= */
+/* ==== AJUST FINAL V2: CENTRAT I ALÇADES IGUALS (GRID) ==== */
+/* ======================================================= */
+
+/* 1. Contenidor principal de les dues columnes */
+.info-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: start; /* CORREGIDO: Evita que las secciones se estiren y se solapen */
+  padding: 48px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* 2. Columna de la imatge i el seu contingut (ara també és un grid) */
+.info-split__media {
+  display: grid;
+  grid-template-rows: auto auto 1fr; /* Fila para el título, para el párrafo y el resto para la imagen */
+  gap: 16px;
   text-align: center;
 }
 
-.contact-content h2 {
-  font-size: clamp(36px, 5vw, 50px);
-  font-weight: 400; /* Letra más fina */
-  letter-spacing: 0.5px;
-  line-height: 1.3;
-  margin: 0 0 16px;
+.info-split__media img {
+  width: 100%;
+  height: 100%; /* La imatge ocupa tota l'alçada de la seva fila */
+  object-fit: cover; /* Omple l'espai sense deformar-se */
+  border-radius: 16px;
 }
 
-.contact-content p {
-  max-width: 45ch;
-  margin: 0 auto 48px auto;
-  opacity: 0.8;
-  font-size: clamp(16px, 2.4vw, 18px);
+/* 3. Columna del mapa i el seu contingut (també un grid) */
+.info-split__content {
+  display: grid;
+  grid-template-rows: auto auto 1fr; /* Fila para el título, para el párrafo y el resto para el mapa */
+  gap: 16px;
+  text-align: center;
 }
 
-/* Contenedor del formulario */
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: left; /* Alineamos las etiquetas a la izquierda */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%; /* El contenidor del mapa ocupa tota l'alçada de la seva fila */
+  border-radius: 16px;
+  overflow: hidden; /* Important per mantenir les cantonades arrodonides de l'iframe */
 }
 
-.form-group {
-  margin-bottom: 24px;
+/* L'iframe ha d'omplir el seu contenidor */
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
-/* Estilo para las etiquetas (Name, Email, Message) */
-.contact-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 500;
+
+/* 4. Títols (H2) de cada columna */
+.info-split h2 {
+  font-size: clamp(22px, 3vw, 28px);
+  /* Eliminem el marge inferior perquè ara fem servir 'gap' */
+  margin: 0; 
+  font-weight: 600;
   color: #333;
 }
 
-.contact-form .required {
-  font-weight: 400;
-  font-size: 12px;
-  color: #888;
+/* NUEVO: Estilo para los nuevos párrafos en Horaris y Ubicació */
+.info-split p {
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.7;
+  color: #333;
+  max-width: 70ch;
+  margin: 0 auto; /* Centra el bloque de texto */
+  padding: 0 10px; /* Pequeño padding lateral */
 }
 
-/* Estilo para los campos de texto y el área de mensaje */
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 16px;
-  transition: border-color .2s ease;
+
+/* No t'oblidis de la regla per a mòbils! */
+@media (max-width: 900px) {
+  .info-split {
+    /* grid-template-columns: 1fr; no es necesario, ya está fuera */
+    gap: 60px;
+    padding: 40px 20px;
+  }
+  .info-split h2 {
+    text-align: center;
+  }
+  .info-split__media {
+    text-align: center;
+  }
+  /* Donem una alçada fixa al mapa en vista mòbil per evitar que quedi gegant */
+  .map-container {
+    height: 400px; 
+  }
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: #000; /* Resalta el borde al hacer clic */
-}
-
-.contact-form textarea {
-  resize: vertical; /* Permite al usuario ajustar la altura */
-}
-
-/* Estilo del botón "Enviar" */
-.submit-btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 50px; /* Para que sea totalmente redondeado */
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity .2s ease;
-}
-
-.submit-btn:hover {
-  opacity: 0.8;
-}
-
-/* Centrar el botón */
-.form-submit {
+/* ======================================================= */
+/* ==== ESTILS PER AL COMPTE ENRERE (VERSIÓ CORREGIDA) ==== */
+/* ======================================================= */
+.countdown-section {
+  padding: 80px 24px;
+  background-color: #fff;
   text-align: center;
-  margin-top: 32px;
+}
+
+.countdown-section h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 48px;
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+/* 3. Canvi per al centrat perfecte */
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 3. Nou contenidor per aïllar el cercle i el número */
+.countdown-circle-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.countdown-svg {
+  width: 120px;
+  height: 120px;
+}
+
+.countdown-svg circle {
+  fill: transparent;
+  /* 1. Línia més fina */
+  stroke-width: 4; 
+}
+
+.countdown-svg circle.bg {
+  stroke: #e6e6e6;
+}
+
+.countdown-svg circle.progress {
+  stroke: #009688;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.2s linear;
+  /* 2. Canvi per a la direcció horària */
+  transform-origin: center;
+  transform: rotate(-90deg) scaleY(-1); 
+}
+
+/* 3. El número ara va dins del nou contenidor */
+.countdown-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #a0a0a0;
+  font-size: 36px;
+  font-weight: 300;
+}
+
+.countdown-label {
+  margin-top: 16px;
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: #555;
+  text-transform: uppercase;
 }
 
 /* ========================================= */
-/* ==== AJUSTES PARA LA IMAGEN DEL HEADER EN MÓVIL ==== */
+/* ==== ESTILOS PARA LA SECCIÓN DE REGALO ==== */
 /* ========================================= */
+
+.gift-section {
+  background-color: #f8f8f8; /* Un color suave para diferenciar la sección */
+  padding: 80px 24px;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
+}
+
+.gift-content {
+  max-width: 70ch; /* Limitamos el ancho para mejorar la legibilidad */
+  margin: 0 auto;
+}
+
+.gift-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 24px;
+  fill: #009688; /* Color verde azulado a juego con el contador */
+}
+
+.gift-content h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+/* Esta es la regla principal para ESCRITORIO */
+.copy-container {
+  position: relative; /* Propiedad del primer bloque, ahora integrada */
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  font-family: monospace;
+  font-size: 18px;
+}
+
+#iban-number {
+  color: #333;
+}
+
+/* En la sección de Regalo, o donde tengas el botón de IBAN */
+#copy-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 8px; /* Ajusta para que coincida */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Para que ambos iconos tengan el mismo tamaño visible */
+    height: 24px;
+}
+
+#copy-button img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#copy-button:hover {
+  background-color: #f0f0f0;
+}
+
+
+.iban-holder {
+  font-family: system-ui, -apple-system, sans-serif; /* Usa la fuente normal de la web */
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: #666; /* Un gris suave para diferenciarlo */
+  margin-top: 8px; /* Un pequeño espacio para separarlo de la caja del IBAN */
+}
+
+/* ==== ESTILOS PARA EL POP-UP DE "COPIAT!" ==== */
+
+.copy-popup {
+  position: absolute;
+  bottom: 125%; /* Lo coloca justo encima del botón */
+  left: 50%;
+  transform: translateX(-50%); /* Lo centra horizontalmente */
+  background-color: #333;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+  
+  /* Efecto y estado por defecto (oculto) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Clase que se añade con JavaScript para mostrar el pop-up */
+.copy-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========================================= */
+/* ==== ESTILOS PARA LA SECCIÓN DE GRACIAS ==== */
+/* ========================================= */
+
+.thank-you-section {
+  background-color: #fff;
+  padding: 80px 24px;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
+}
+
+.thank-you-content {
+  max-width: 70ch;
+  margin: 0 auto;
+}
+
+.thank-you-content h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+.thank-you-content p {
+  margin: 0 0 16px;
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* ========================================= */
+/* ==== ESTILOS PARA EL MENÚ HAMBURGUESA ==== */
+/* ========================================= */
+
+/* El botón de hamburguesa estará oculto en escritorio */
+.hamburger {
+  display: none;
+}
+
+/* ======================================================= */
+/* ==== ESTILOS UNIFICADOS PARA DISPOSITIVOS MÓVILES ==== */
+/* ======================================================= */
 
 @media (max-width: 768px) {
-  header.hero {
-    /* 1. Cambiamos el punto de anclaje de la imagen.
-       En lugar de centrarla, le decimos que priorice la parte superior. */
-    background-position: center top;
 
-    /* 2. Desactivamos el efecto parallax en móvil.
-       Esto mejora mucho el rendimiento y la compatibilidad. */
+  /* --- Ajustes del Header --- */
+  header.hero {
+    background-position: center top;
     background-attachment: scroll;
-    
-    /* 3. (Opcional) Podemos darle un poco más de altura en móvil
-       para que la imagen tenga más espacio para mostrarse. */
     min-height: 60vh;
   }
+
+  /* --- Ajustes de la sección de Regalo --- */
+  .copy-container {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  /* --- Menú Hamburguesa --- */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2000;
+    position: fixed;
+    top: 15px;
+    left: 20px;
+  }
+
+  .hamburger .line {
+    width: 2rem;
+    height: 0.25rem;
+    background: #fff;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
+  
+  /* Estilo del botón cuando la barra de navegación tiene fondo */
+  .sticky-nav.scrolled .hamburger .line {
+    background: #333;
+  }
+
+  .sticky-nav {
+    /* Aumentamos el padding para hacer la barra más alta */
+    padding: 24px 20px;
+  }
+  .sticky-nav ul {
+    gap: 20px;
+  }
+  .sticky-nav a {
+    font-size: 13px; 
+  }
+  
+  .hamburger[aria-expanded="true"] .line:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] .line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  .hamburger[aria-expanded="true"] .line:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+  .hamburger[aria-expanded="true"] .line {
+      background: #333;
+  }
+
+
+  /* --- Panel de navegación desplegable --- */
+  /* --- Panel de navegación desplegable (VERSIÓN CORREGIDA) --- */
+  .nav-links {
+    position: fixed;
+    z-index: 1999;
+    
+    /* CAMBIO: Aseguramos la posición y el tamaño correctos */
+    top: 0;
+    left: 0;
+    width: 70%; /* Ocupa el 70% del ancho desde la izquierda */
+    height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+
+    /* Volvemos a centrar el contenido perfectamente */
+    display: flex; /* Añadimos display flex que se había perdido */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 2em;
+
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    
+    transform: translateX(-100%);
+    transition: transform 350ms ease-out;
+  }
+
+  .nav-links[data-visible="true"] {
+    transform: translateX(0%);
+  }
+
+  .nav-links a {
+    color: #333;
+    text-shadow: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .nav-links a.active {
+    color: #000;
+  }
+
+  /* --- Aumento de tamaño para textos en móvil --- */
+  .hero p,
+  .text-container p,
+  .info-split p,
+  .accommodations-section .accommodations-content p, /* <-- MODIFICADO */
+  .gift-content p,
+  .thank-you-content p,
+  .hotel-details .detail-text,
+  .hotel-details .detail-link,
+  .directions-text,
+  .iban-holder {
+    /* Usamos un clamp() con un mínimo más alto para móvil */
+    font-size: clamp(16px, 4.5vw, 22px);
+  }
+}
+
+/* AJUSTES RESPONSIVE PARA EL CONTADOR (CORREGIDO) */
+@media (max-width: 500px) {
+  .countdown-container {
+    gap: 16px; /* Reducimos el espacio entre círculos */
+    /* Evita que los círculos se desborden en pantallas muy pequeñas */
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* La clave es usar .countdown-item para aplicar los cambios a cada uno */
+  .countdown-item .countdown-circle-container,
+  .countdown-item .countdown-svg {
+    width: 80px; /* Reducimos el tamaño de los círculos */
+    height: 80px;
+  }
+  
+  /* Aseguramos que los círculos SVG internos se ajusten */
+  .countdown-item .countdown-svg circle {
+    r: 35;      /* Radio más pequeño */
+    cx: 40;     /* Nuevo centro X */
+    cy: 40;     /* Nuevo centro Y */
+  }
+
+  .countdown-item .countdown-number {
+    font-size: 24px; /* Hacemos el número más pequeño */
+  }
+
+  .countdown-item .countdown-label {
+    font-size: 14px; /* Y la etiqueta también */
+  }
+}
+
+/* ==================================================== */
+/* ==== ESTILOS PARA EL BOTÓN PERSONALIZADO DEL MAPA ==== */
+/* ==================================================== */
+
+.directions-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+  display: flex;
+  flex-direction: row; /* Alineación horizontal */
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacio entre el icono y el texto */
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 32px 62px; /* Más ancho que alto */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: transform 0.2s ease;
+}
+
+.directions-btn:hover {
+  transform: scale(1.05);
+}
+
+.directions-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #008386; /* Un color similar al de tu imagen */
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+.directions-icon img {
+  width: 24px;  /* Ajusta el tamaño de tu logo si es necesario */
+  height: 24px; /* Asegúrate de que width y height sean iguales */
+}
+
+.directions-text {
+  color: #333;
+  font-weight: 500;
+  font-size: clamp(12px, 5.4vw, 25px);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* =============================================================== */
+/* ==== ESTILOS PARA EL POP-UP DE LA IMAGEN (MODAL/LIGHTBOX) ==== */
+/* =============================================================== */
+
+/* Estilo para que la imagen de horarios parezca 'clicable' */
+#horaris-image {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+#horaris-image:hover {
+  transform: scale(1.03);
+}
+
+/* El fondo del modal (overlay gris) */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 3000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.85);
+}
+
+/* La imagen dentro del modal */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: auto;
+  max-width: 90%;
+  max-height: 80vh;
+}
+
+/* Animación de Zoom al aparecer */
+.modal-content {
+  animation-name: zoom;
+  animation-duration: 0.4s;
+}
+
+@keyframes zoom {
+  from {transform: scale(0.5)}
+  to {transform: scale(1)}
+}
+
+/* Botón de cerrar (la 'X') */
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+  color: #bbb;
+  text-decoration: none;
+}
+
+/* Clase para bloquear el scroll (si no la tienes ya) */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* ======================================================= */
+/* ==== AJUSTES V2: REDUCIR ANCHO EN ESCRITORIO (APILADO) ==== */
+/* ======================================================= */
+
+/* 1. Mantenemos el cambio del ancho de texto para que sea consistente */
+.info-split p {
+  max-width: 100ch;
+}
+
+#horaris p {
+  color: #000000; /* <-- Cambia este valor por el color que desees */
+}
+
+/* 2. En pantallas de más de 900px, en lugar de crear dos columnas,
+      simplemente hacemos que el contenido no ocupe todo el ancho. */
+@media (min-width: 901px) {
+  .info-split {
+    /* Centra los elementos hijos que ahora tendrán un ancho máximo */
+    justify-items: center;
+    padding: 80px 24px;
+  }
+
+  /* Le damos un ancho máximo a los contenedores de la imagen y del mapa */
+  .info-split__media,
+  .info-split__content {
+    width: 100%; /* Asegura que usan el espacio disponible */
+    max-width: 800px; /* ¡Esta es la clave! Limita el ancho máximo a 800px. Puedes ajustar este valor si lo quieres más grande o más pequeño. */
+  }
+}
+
+#address-text {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.copy-text {
+  flex-grow: 1;
+  text-align: center;
+  margin: 0 10px; /* Añade un pequeño margen para que no se pegue al botón */
+}
+
+/* Estilo para la nueva imagen dentro de los botones de copiar */
+.copy-container button img {
+  width: 20px;   /* Ajusta el tamaño si es necesario */
+  height: 20px;  /* Ajusta el tamaño si es necesario */
+  display: block; /* Ayuda a evitar espacios indeseados */
+}
+
+/* Estilo para el botón de copiar dirección */
+#copy-address-btn {
+    background: none; /* Elimina el fondo */
+    border: none;    /* Elimina el borde */
+    cursor: pointer; /* Asegura que el cursor sea un puntero */
+    padding: 0;      /* Elimina cualquier padding interno por defecto del botón */
+    margin-left: 8px; /* Ajusta el margen si lo necesitas */
+    display: inline-flex; /* Para alinear verticalmente la imagen si tiene altura diferente */
+    align-items: center; /* Centra verticalmente la imagen */
+    justify-content: center;
+    width: 24px; /* Ajusta el tamaño para que sea similar al del IBAN si es necesario */
+    height: 24px;
+}
+
+/* Asegúrate de que la imagen dentro del botón también se vea bien */
+#copy-address-btn img {
+    width: 20px;
+    height: auto; /* La altura se ajusta para mantener la proporción */
+    display: block;
+}
+
+/* ======================================================= */
+/* ==== NUEVA SECCIÓN DE ALOJAMIENTOS (VERSIÓN MEJORADA) ==== */
+/* ======================================================= */
+.accommodations-section {
+  background-color: #fff;
+  padding: 80px 24px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.accommodations-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.accommodations-content h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+.accommodations-content p {
+  max-width: 70ch;
+  margin: 0 auto 48px auto;
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.8;
+  color: #000000;
+}
+
+.hotel-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  text-align: left;
+}
+
+.hotel-card {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hotel-name {
+  margin: 0 0 16px;
+  font-size: 20px;
+  color: #333;
+}
+
+.hotel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* <-- ESTA LÍNEA CONTROLA EL ESPACIO VERTICAL */
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0; /* Evita que el icono se encoja */
+}
+
+.detail-text {
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: #555;
+  line-height: 1.5;
+}
+
+.detail-link {
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: #008386;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.detail-link:hover {
+  text-decoration: underline;
+}
+
+/* Ajuste para la sección de Ubicació separada */
+.section-no-border {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* ======================================================= */
+/* ESTILOS PARA LA SECCIÓN Y BOTÓN DEL CALENDARIO (V3) */
+/* ======================================================= */
+
+/* 1. Estilo para la nueva sección contenedora */
+.calendar-section {
+  text-align: center;
+  padding: 12px 24px 36px;
+  margin-top: -48px;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+/* 2. Nuevo diseño para el botón adaptado a fondo blanco */
+.btn-calendar {
+  /* --- Estructura y alineación --- */
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  /* --- Nuevo diseño y apariencia --- */
+  padding: 12px 24px;
+  color: #fff; /* Texto blanco */
+  background-color: #c7c4bf; /* Color verde azulado a juego con el contador */
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  /* --- Texto --- */
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  
+  /* --- Animación --- */
+  transition: all 0.3s ease;
+}
+
+.btn-calendar:hover {
+  background-color: #00796b; /* Un tono más oscuro al pasar el ratón */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* --- Estilo para el icono dentro del botón --- */
+.btn-calendar img {
+  width: 22px;
+  height: 22px;
 }

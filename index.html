@@ -3,84 +3,205 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
     <title>Laura & Nil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="hero" role="banner" aria-label="Portada boda Laura y Nil">
-    <!-- Logo arriba a la izquierda -->
-        <a class="logo" href="#top" aria-label="Inicio">
+    <nav class="sticky-nav">
+        <button id="hamburger-btn" class="hamburger" aria-controls="primary-navigation" aria-expanded="false">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
+
+        <ul id="primary-navigation" class="nav-links" data-visible="false">
+            <li><a href="#top">Confirma Assistencia</a></li>
+            <li><a href="#horaris">Horaris</a></li>
+            <li><a href="#ubicacio">Ubicació</a></li>
+            <li><a href="#accommodations">Allotjament</a></li>
+            <li><a href="#gift">Regal</a></li>
+        </ul>
+    </nav>
+    <header class="hero" role="banner" aria-label="Portada boda Laura y Nil" id="top">
+    <a class="logo" href="#top" aria-label="Inicio">
             <img
                 src="logo.png"
                 alt="Logo Laura y Nil"
                 height="150" />
         </a>
-    <!-- Contenido centrado -->
-        <div class="hero-content">
-            <h1>Laura &amp; Nil</h1>
-            <p>13 de Juny de 2026, Mas d'Osor</p>
-            <a class="btn" href="https://forms.gle/UPQAaie7obC1C1HL6" target="_blank" rel="noopener noreferrer" aria-label="Confirmar asistencia">CONFIRMA ASSISTENCIA</a>
-        </div>
+    <div class="hero-content">
+        <h1>Laura & Nil</h1>
+        <p>13.06.2026, Mas d'Osor</p>
+        <a class="btn" href="https://forms.gle/UPQAaie7obC1C1HL6" target="_blank" rel="noopener noreferrer" aria-label="Confirmar asistencia">CONFIRMA ASSISTENCIA</a>
+    </div>
     </header>
-    <section class="info-split" id="timings">
+    <section class="text-section">
+        <div class="text-container">
+            <p>
+                Benvinguts a la nostra web! Ens casem (sí, ho heu llegit bé 😅) i volem que sigueu part d’aquesta festa d’amor, 
+                música i bon menjar. Aquí trobareu tota la informació perquè no se us escapi res. 
+                Ens fa molta il·lusió poder compartir aquest moment tan significatiu amb tots vosaltres. 
+                Prepara’t per riure, ballar i brindar amb nosaltres!
+            </p>
+        </div>
+    </section>
+    <section class="info-split" id="horaris">
         <div class="info-split__media">
-            <img src="timings.png" alt="Programa del día" />
+            <h2>Horaris</h2>
+            <p>Aquí trobaràs els horaris per gaudir junts de cada moment especial.</p>
+            <img id="horaris-image" src="timings.png" alt="Imagen del lugar de la boda" />
         </div>
+    </section>
+    <section class="calendar-section">
+        <a class="btn-calendar" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Boda+Laura+%26+Nil&dates=20260613T170000/20260614T040000&details=¡Ens+casem!+Us+esperem+a+Mas+d'Osor.&location=Mas+d'Osor,+17406+Viladrau,+Girona" target="_blank" rel="noopener noreferrer">
+            <img src="https://api.iconify.design/logos/google-calendar.svg" alt="Google Calendar Icon">
+            <span>Afegeix a Google Calendar</span>
+        </a>
+    </section>
+    <section class="info-split" id="ubicacio">
         <div class="info-split__content">
-            <h2>Horaris del casament</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <h2>Ubicació</h2>
+            <p><b>No volem que et perdis el casament per res del món!</b></p>
+            <p>Aquí sempre podràs consultar l’adreça, així que… res d’excuses per arribar tard!</p>
+            <p>Hi haurà un <b>servei d’autocar</b> de Sabadell fins a Mas d’Osor (anada i tornada). Al formulari ens haureu de confirmar si hi esteu interessats i nosaltres ens posarem en contacte amb vosaltres.</p>
+            <div class="copy-container">
+                <span id="address-text" class="copy-text">Ctra. de Viladrau a Fàbrega - Km 0,7, 17406 Viladrau, Girona</span>
+                <button id="copy-address-btn" title="Copiar Adreça">
+                    <img src="copy-logo.png" alt="Copiar" />
+                </button>
+                <span id="copy-address-popup" class="copy-popup">Adreça copiada!</span>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.3955673061964!2d2.350249674537588!3d41.86283506637216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4d65ba9195033%3A0xe7c5472c928fc5c2!2sMas%20d&#39;Osor!5e0!3m2!1ses!2ses!4v1760035087122!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Mas+d'Osor" target="_blank" class="directions-btn" rel="noopener noreferrer">
+                    <span class="directions-icon">
+                        <img src="direction.png" alt="Icono de cómo llegar">
+                    </span>
+                    <span class="directions-text">Com arribar</span>
+                </a>
+            </div>
         </div>
     </section>
-    <section class="location-section" id="location">
-        <div class="location-content">
-            <h2>Com Arribar a Mas d'Osor?</h2>
+    <section class="accommodations-section" id="accommodations">
+        <div class="accommodations-content">
+            <h2>On dormir?</h2>
+            <p>Si vols quedar-te a dormir a prop, et deixem a continuació els dos allotjaments més propers. Tot i així, hi ha moltes més opcions a internet —i, si tens dubtes, ens pots preguntar!</p>
+            
+            <div class="hotel-list">
+                <div class="hotel-card">
+                    <h3 class="hotel-name">Hostal La Guineu</h3>
+                    <div class="hotel-details">
+                        <div class="detail-item">
+                            <img src="https://api.iconify.design/mdi/map-marker-outline.svg?color=%23666666" alt="Ubicació" class="detail-icon">
+                            <span class="detail-text">Urbanització Guilleries, 71, 17406 Viladrau, Girona</span>
+                        </div>
+                        <div class="detail-item">
+                            <img src="https://api.iconify.design/mdi/web.svg?color=%23666666" alt="Web" class="detail-icon">
+                            <a href="https://www.hostaldelaguineu.com" target="_blank" rel="noopener noreferrer" class="detail-link">hostaldelaguineu.com</a>
+                        </div>
+                    </div>
+                </div>
 
-            <a class="address-link" href="https://maps.app.goo.gl/WvbrzHa5P5nSvmoNA" target="_blank" rel="noopener noreferrer">
-                <p>
-                    Ctra. de Sant Hilari, km 5, 17171 Osor, Girona
-                </p>
-            </a>
-        </div>
-        <div class="map-container">
-            <iframe
-                src="https://maps.google.com/maps?q=41.862811,2.352810&hl=es;z=15&amp;output=embed"
-                width="600"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+                <div class="hotel-card">
+                    <h3 class="hotel-name">Xalet Coromina</h3>
+                    <div class="hotel-details">
+                        <div class="detail-item">
+                            <img src="https://api.iconify.design/mdi/map-marker-outline.svg?color=%23666666" alt="Ubicació" class="detail-icon">
+                            <span class="detail-text">Carretera de Vic, 4, 17406 Viladrau, Girona</span>
+                        </div>
+                        <div class="detail-item">
+                            <img src="https://api.iconify.design/mdi/web.svg?color=%23666666" alt="Web" class="detail-icon">
+                            <a href="https://www.xaletcoromina.com" target="_blank" rel="noopener noreferrer" class="detail-link">xaletcoromina.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    <section class="contact-section" id="contact">
-        <div class="contact-content">
-            <h2>Contacta amb nosaltres</h2>
-            <p>Contacta per resoldre dubtes sobre el casament.</p>
-        </div>
+    <section class="gift-section" id="gift">
+        <div class="gift-content">
+            <img src="regalo.png" alt="Icono de regalo" class="gift-icon">
+            <h2>Un detall per a nosaltres</h2>
+            <p>El vostre regal més gran és ser-hi amb nosaltres. Però si voleu col·laborar en el nostre futur, aquí teniu el número de compte, que ens ajudarà a fer realitat nous somnis.</p>
+            
+            <div class="copy-container">
+                <span id="iban-number" class="copy-text">ES00 0000 0000 0000 0000 0000</span>
+                <button id="copy-button" title="Copiar IBAN">
+                    <img src="copy-logo.png" alt="Copiar" />
+                </button>
+                <span id="copy-popup" class="copy-popup">Copiat!</span>
+            </div>
 
-        <form class="contact-form" name="contacto" method="POST" data-netlify="true" action="/gracias.html">
-            <div class="form-group">
-                <label for="name">Nom <span class="required">(required)</span></label>
-                <input type="text" id="name" name="name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email <span class="required">(required)</span></label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Missatge <span class="required">(required)</span></label>
-                <textarea id="message" name="message" rows="4"></textarea>
-            </div>
-            <div class="form-group form-submit">
-                <button type="submit" class="submit-btn">Enviar</button>
-            </div>
-        </form>
+            <p class="iban-holder">Titular: Laura Guitart Pardellans & Nil Busquets</p>
+            
+        </div>
     </section>
+    <section class="countdown-section">
+        <h2>Compte enrere</h2>
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <div class="countdown-circle-container">
+                    <svg class="countdown-svg" width="120" height="120" viewBox="0 0 120 120">
+                        <circle class="bg"       r="50" cx="60" cy="60"></circle>
+                        <circle class="progress" id="days-progress" r="50" cx="60" cy="60"></circle>
+                    </svg>
+                    <div class="countdown-number" id="days">00</div>
+                </div>
+                <p class="countdown-label">Dies</p>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-circle-container">
+                    <svg class="countdown-svg" width="120" height="120" viewBox="0 0 120 120">
+                        <circle class="bg" r="50" cx="60" cy="60"></circle>
+                        <circle class="progress" id="hours-progress" r="50" cx="60" cy="60"></circle>
+                    </svg>
+                    <div class="countdown-number" id="hours">00</div>
+                </div>
+                <p class="countdown-label">Hores</p>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-circle-container">
+                    <svg class="countdown-svg" width="120" height="120" viewBox="0 0 120 120">
+                        <circle class="bg" r="50" cx="60" cy="60"></circle>
+                        <circle class="progress" id="minutes-progress" r="50" cx="60" cy="60"></circle>
+                    </svg>
+                    <div class="countdown-number" id="minutes">00</div>
+                </div>
+                <p class="countdown-label">Minuts</p>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-circle-container">
+                    <svg class="countdown-svg" width="120" height="120" viewBox="0 0 120 120">
+                        <circle class="bg" r="50" cx="60" cy="60"></circle>
+                        <circle class="progress" id="seconds-progress" r="50" cx="60" cy="60"></circle>
+                    </svg>
+                    <div class="countdown-number" id="seconds">00</div>
+                </div>
+                <p class="countdown-label">Segons</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="thank-you-section">
+        <div class="thank-you-content">
+            <h2>Gràcies!</h2>
+            <p>Per qualsevol dubte o si necessiteu més informació, ens podeu escriure directament per <b>Whatsapp</b>. Gràcies per ser-hi!</p>
+        </div>
+    </section>
+
+    <div id="image-modal" class="modal">
+      <span class="modal-close-btn">×</span>
+      <img class="modal-content" id="modal-image">
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
