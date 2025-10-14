@@ -16,6 +16,7 @@ const secondsProgress = document.getElementById('seconds-progress');
 const radius = daysProgress.r.baseVal.value;
 const circumference = 2 * Math.PI * radius;
 
+
 // Inicialitza els cercles
 [daysProgress, hoursProgress, minutesProgress, secondsProgress].forEach(circle => {
     circle.style.strokeDasharray = circumference;
@@ -116,30 +117,6 @@ document.getElementById('copy-button').addEventListener('click', function() {
     });
 });
 
-// ===== CÓDIGO SIMPLIFICADO PARA EL MENÚ MÓVIL =====
-const hamburgerBtn = document.getElementById('hamburger-btn');
-const navLinks2 = document.getElementById('primary-navigation');
-
-hamburgerBtn.addEventListener('click', () => {
-    const isVisible = navLinks2.getAttribute('data-visible') === 'true';
-
-    if (isVisible) {
-        navLinks2.setAttribute('data-visible', 'false');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-    } else {
-        navLinks2.setAttribute('data-visible', 'true');
-        hamburgerBtn.setAttribute('aria-expanded', 'true');
-    }
-});
-
-// Cierra el menú al hacer clic en un enlace
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks2.setAttribute('data-visible', 'false');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-    });
-});
-
 // ===== CÓDIGO CORREGIDO PARA EL POP-UP DE LA IMAGEN DE HORARIOS =====
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener los elementos del DOM
@@ -175,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
 // ===== CÓDIGO PARA COPIAR LA DIRECCIÓN =====
 document.getElementById('copy-address-btn').addEventListener('click', function() {
     const addressText = document.getElementById('address-text').innerText;
@@ -191,4 +169,124 @@ document.getElementById('copy-address-btn').addEventListener('click', function()
     }).catch(err => {
         console.error('Error al copiar la dirección: ', err);
     });
+});
+
+
+// ===== CÓDIGO PARA CARRUSEL DE IMAGENES =====
+// ===== Carrusel 4:3 — versión unificada y robusta =====
+(function () {
+  function initCarousel() {
+    const track = document.getElementById('photos-track');
+    if (!track) return; // no hay carrusel en esta página
+
+    const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+    if (slides.length === 0) return;
+
+    // Activa y opcionalmente centra
+    function activateAndCenter(targetSlide, center = true) {
+      if (!targetSlide) return;
+      slides.forEach(s => s.classList.remove('is-active'));
+      targetSlide.classList.add('is-active');
+
+      if (!center) return;
+
+      const viewport = track;
+      const slideRect = targetSlide.getBoundingClientRect();
+      const vpRect = viewport.getBoundingClientRect();
+      const currentScroll = viewport.scrollLeft;
+      const slideCenter = slideRect.left - vpRect.left + currentScroll + slideRect.width / 2;
+      const targetScrollLeft = Math.max(0, slideCenter - vpRect.width / 2);
+      viewport.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+    }
+
+    // Click en miniatura
+    track.addEventListener('click', (e) => {
+      const btn = e.target.closest('.slide-btn');
+      if (!btn || !track.contains(btn)) return;
+      const slide = btn.closest('.carousel-slide');
+      activateAndCenter(slide, true);
+    });
+
+    // Selección inicial: tercera si existe, si no la primera
+    const initial = track.querySelector('.carousel-slide.is-active') || slides[2] || slides[0];
+    activateAndCenter(initial, true);
+
+    // Mantener centrada al redimensionar
+    window.addEventListener('resize', () => {
+      const active = track.querySelector('.carousel-slide.is-active') || slides[2] || slides[0];
+      activateAndCenter(active, true);
+    });
+
+    // Auto-activar por visibilidad (>50%) en móvil
+    function enableMobileAutoActive() {
+      if (!window.matchMedia('(max-width: 768px)').matches) return;
+
+      const io = new IntersectionObserver((entries) => {
+        const candidates = entries
+          .filter(e => e.isIntersecting && e.intersectionRatio >= 0.6)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (candidates.length) {
+          const slide = candidates[0].target;
+          if (!slide.classList.contains('is-active')) {
+            // Marca sin recentrar inmediato; un pequeño snap luego
+            activateAndCenter(slide, false);
+          }
+        }
+      }, { root: track, threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+      slides.forEach(slide => io.observe(slide));
+
+      // Snap suave al final del scroll
+      let t;
+      track.addEventListener('scroll', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          const active = track.querySelector('.carousel-slide.is-active');
+          if (active) activateAndCenter(active, true);
+        }, 120);
+      }, { passive: true });
+    }
+
+    enableMobileAutoActive();
+    window.addEventListener('resize', enableMobileAutoActive);
+  }
+
+  // Espera al DOM si aún no está cargado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousel, { once: true });
+  } else {
+    initCarousel();
+  }
+})();
+
+
+// ===== CÓDIGO ÚNICO Y FUNCIONAL PARA EL MENÚ MÓVIL =====
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerBtn2 = document.getElementById('hamburger-btn');
+  const navPanel = document.getElementById('primary-navigation');
+  const overlay = document.querySelector('.menu-overlay');
+
+  if (!hamburgerBtn2 || !navPanel || !overlay) return; // evita errores silenciosos
+
+  const openMenu = () => {
+    navPanel.setAttribute('data-visible', 'true');
+    hamburgerBtn2.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open'); // muestra overlay persistente
+  };
+
+  const closeMenu = () => {
+    navPanel.setAttribute('data-visible', 'false');
+    hamburgerBtn2.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open'); // oculta overlay
+  };
+
+  const toggleMenu = () => {
+    const isOpen = navPanel.getAttribute('data-visible') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  };
+
+  hamburgerBtn2.addEventListener('click', toggleMenu, { passive: true });
+  overlay.addEventListener('click', closeMenu, { passive: true });
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeMenu, { passive: true }));
 });
